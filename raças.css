@@ -1,0 +1,38 @@
+.navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+      z-index: 1000;
+       background-color: black;
+       color: #f1f1f1;
+
+    }
+
+  
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      padding: 14px 20px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+ 
+    .navbar a:hover {
+      background-color: #575757;
+    }
+
+   
+    body {
+      margin: 0;
+      padding-top: 60px; 
+      background-color: rgb(36, 36, 36);
+      color: #f1f1f1
+      ;
+    }
