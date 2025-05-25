@@ -11,29 +11,24 @@ function renderizarGiveaways(giveaways) {
 
   giveaways.slice(0, 5).forEach((giveaway) => {
     const card = document.createElement("article");
-    card.classList.add("col");
+    card.classList.add("col", "p-2", "article");
 
     card.innerHTML = `
-  <div class="card h-100 shadow-lg p-3 bg-dark text-light rounded">
-    <img src="${giveaway.image}" alt="${
-      giveaway.title
-    }" class="card-img-top rounded mb-3" />
-    <div class="card-body d-flex flex-column">
-      <h5 class="card-title">${giveaway.title}</h5>
-      <p class="card-text flex-grow-1">${limitarTexto(
-        giveaway.description,
-        42
-      )}</p>
-      <p class="card-text"><small class="text-muted">Termina em: ${
-        giveaway.end_date || "Indeterminado"
-      }</small></p>
+  <a>
+  <div class="card-custom shadow-lg rounded">
+    <div class="card-img-container">
+      <img src="${giveaway.image}" alt="${giveaway.title}" class="card-img" />
     </div>
-    <div class="card-footer bg-transparent border-0 pt-3">
+    <div class="card-footer-custom p-3 d-flex flex-column justify-content-between">
+      <h5 class="card-title text-center fw-bold mb-2">${giveaway.title}</h5>
+      <p class="card-date text-muted small text-center mb-3">
+        Termina em: ${giveaway.end_date || "Indeterminado"}
+      </p>
       <a href="${
         giveaway.open_giveaway
-      }" target="_blank" class="btn btn-primary w-100">Participar</a>
+      }" target="_blank" class="btn-card">Acessar</a>
     </div>
-  </div>
+  </div></a>
 `;
 
     container.appendChild(card);
@@ -45,3 +40,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   const giveawaysFormatados = giveaways.map(formatarGiveaway);
   renderizarGiveaways(giveawaysFormatados);
 });
+
+function renderizarDlcs(giveaway) {}

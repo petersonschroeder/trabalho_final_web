@@ -1,86 +1,9 @@
-
-.navbar-brand {
-    color: salmon !important;
-    font-weight: bold;   
-    font-size: 12px;  
+body {
+  background-color: #121212;
+  color: #f1f1f1;
+  font-family: Arial, sans-serif;
 }
 
-.navbar-nav {
-    display: flex;
-    gap: 0.5cm; 
-}
-.parte2 {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgb(248, 226, 223);
-    padding: 20px;
-  }
-
-  .texto {
-    width: 60%;
-  }
-
-  .img1 {
-    width: 40%;
-    height: auto;
-    border-radius: 10px;
-  }
-
-  .texto h1,
-  .texto p,
-  .texto button {
-    margin-bottom: 10px;
-  }
-
-  .botao {
-    background-color: salmon;
-    color: white;
-    border-radius: 5px;
-    border: 2px solid salmon;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-  .card {
-    width: 250px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-    background-color: white;
-    margin: 20px auto;
-  }
-
-  .card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-  }
-
-  .card h3 {
-    margin: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-  }
-
-  .card p {
-    margin: 0 10px 10px;
-    font-size: 14px;
-    color: #666;
-    text-align: center;
-  }
-  body {
-    background-color: #121212; /* um preto um pouco mais suave */
-    color: #f1f1f1; /* texto claro */
-}
-
-.card {
-    background-color: #1e1e1e; /* fundo das cards um pouco mais claro */
-    color: #fff; /* texto das cards branco */
-}
-
-/* Navbar Customizada */
 .navbar {
   background: linear-gradient(90deg, #0d1117, #161b22);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
@@ -91,11 +14,17 @@
   font-size: 1.8rem;
   letter-spacing: 2px;
   color: #58a6ff !important;
+  font-weight: bold;
   transition: color 0.3s ease;
 }
 
 .navbar-brand:hover {
   color: #2ea44f !important;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 0.5cm;
 }
 
 .navbar-nav .nav-link {
@@ -173,4 +102,109 @@
 .btn-outline-success:hover {
   background-color: #2ea44f;
   color: #fff;
+}
+
+.parte2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(248, 226, 223);
+  padding: 20px;
+}
+
+.container-main {
+  display: flex;
+  gap: 10px;
+}
+
+.texto {
+  width: 60%;
+}
+
+.texto h1,
+.texto p,
+.texto button {
+  margin-bottom: 10px;
+}
+
+.img1 {
+  width: 40%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.botao {
+  background-color: salmon;
+  color: white;
+  border-radius: 5px;
+  border: 2px solid salmon;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.btn-card {
+  display: inline-block;
+  width: 100%;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  border-radius: 0.375rem;
+  background-color: #0d6efd;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-card:hover {
+  background-color: #0b5ed7;
+}
+
+.card-custom {
+  display: flex;
+  flex-direction: column;
+  width: clamp(200px, 90%, 250px);
+  border-radius: 12px;
+  background-color: #1e1e1e;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card-custom:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+}
+
+.card-img-container {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-footer-custom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.article {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }

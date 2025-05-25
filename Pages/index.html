@@ -119,120 +119,35 @@
 
     <!-- Conteúdo Principal -->
     <main>
-      <!--Jogos-->
-      <section class="container my-5" id="allGiveaways">
-        <div class="text-center mb-4">
+      <div class="main-container container">
+        <!-- Jogos -->
+        <section class="my-5" id="gamesGiveaways">
           <h2 class="fw-bold">Jogos em Destaque</h2>
-        </div>
-        <div
-          class="row row-cols-1 row-cols-md-5 g-4 text-center"
-          id="gamesContainer"
+          <div class="row" id="gamesContainer">
+            <!-- Aqui os cards serão inseridos -->
+          </div>
+        </section>
+
+        <!-- DLCs -->
+        <section class="container my-5" id="dlcGiveaways">
+          <h2 class="fw-bold">DLC</h2>
+          <div
+            class="row row-cols-1 row-cols-md-5 g-4 text-center"
+            id="dlcContainer"
+          >
+            <!-- Aqui os cards serão inseridos -->
+          </div>
+        </section>
+
+        <!-- Área para resultados dinâmicos -->
+        <section
+          id="card-area"
+          class="container"
+          aria-label="Resultados de busca"
         >
-          <!-- Aqui os cards serão inseridos -->
-        </div>
-      </section>
-
-      <!--DLCS-->
-      <section class="container my-5" aria-label="Destaques de serviços">
-        <div>
-          <h2>DLCS</h2>
-        </div>
-        <div class="row row-cols-1 row-cols-md-5 g-4 text-center">
-          <article class="col">
-            <div class="card shadow-lg p-3">
-              <img
-                src="../Images/labrador (2).jpeg"
-                class="card-img-top rounded"
-                alt="Banho e Tosa"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Banho & Tosa</h5>
-                <p class="card-text">
-                  Higiene e carinho em cada atendimento para manter seu pet
-                  limpinho e cheiroso.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="col">
-            <div class="card shadow-lg p-3">
-              <img
-                src="../Images/labrador (2).jpeg"
-                class="card-img-top rounded"
-                alt="Banho e Tosa"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Banho & Tosa</h5>
-                <p class="card-text">
-                  Higiene e carinho em cada atendimento para manter seu pet
-                  limpinho e cheiroso.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="col">
-            <div class="card shadow-lg p-3">
-              <img
-                src="../Images/labrador (2).jpeg"
-                class="card-img-top rounded"
-                alt="Banho e Tosa"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Banho & Tosa</h5>
-                <p class="card-text">
-                  Higiene e carinho em cada atendimento para manter seu pet
-                  limpinho e cheiroso.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="col">
-            <div class="card shadow-lg p-3">
-              <img
-                src="../Images/labrador (2).jpeg"
-                class="card-img-top rounded"
-                alt="Banho e Tosa"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Banho & Tosa</h5>
-                <p class="card-text">
-                  Higiene e carinho em cada atendimento para manter seu pet
-                  limpinho e cheiroso.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="col">
-            <div class="card shadow-lg p-3">
-              <img
-                src="../Images/labrador (2).jpeg"
-                class="card-img-top rounded"
-                alt="Banho e Tosa"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Banho & Tosa</h5>
-                <p class="card-text">
-                  Higiene e carinho em cada atendimento para manter seu pet
-                  limpinho e cheiroso.
-                </p>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <!-- Área para resultados dinâmicos -->
-      <section
-        id="card-area"
-        class="container"
-        aria-label="Resultados de busca"
-      >
-        <!-- Cards gerados via JavaScript serão inseridos aqui -->
-      </section>
+          <!-- Cards gerados via JavaScript serão inseridos aqui -->
+        </section>
+      </div>
     </main>
 
     <!-- Rodapé -->
