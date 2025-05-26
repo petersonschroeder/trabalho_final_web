@@ -121,10 +121,42 @@
     <main>
       <div class="main-container container">
         <!-- Jogos -->
-        <section class="my-5" id="gamesGiveaways">
+        <!--<section class="my-5" id="gamesGiveaways">  - Utilizar depois para chamar a api-->
+        <section class="my-5" id="">
           <h2 class="fw-bold">Jogos em Destaque</h2>
           <div class="row" id="gamesContainer">
-            <!-- Aqui os cards serão inseridos -->
+            <article class="col p-2 article">
+              <a>
+                <div class="card-custom shadow-lg rounded">
+                  <div class="card-img-container">
+                    <img
+                      src="${giveaway.image}"
+                      alt="${giveaway.title}"
+                      class="card-img"
+                    />
+                  </div>
+                  <div
+                    class="card-footer-custom p-3 d-flex flex-column justify-content-between"
+                  >
+                    <h5 class="card-title text-center fw-bold mb-2">
+                      ${giveaway.title}
+                    </h5>
+                    <p class="card-date text-muted small text-center mb-3">
+                      Termina em: ${giveaway.end_date || "Indeterminado"}
+                    </p>
+                    <a
+                      href="${
+                      giveaway.open_giveaway
+                    }"
+                      target="_blank"
+                      class="btn-card"
+                      >Acessar</a
+                    >
+                  </div>
+                </div></a
+              >
+            </article>
+            >
           </div>
         </section>
 

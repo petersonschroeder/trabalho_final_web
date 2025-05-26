@@ -42,3 +42,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 function renderizarDlcs(giveaway) {}
+
+
+
