@@ -208,3 +208,42 @@ body {
   color: inherit;
   display: block;
 }
+ .faixa {
+      width: 100%;
+      background-color: #333;
+      color: #fff;
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+      padding: 10px 0;
+    }
+
+    .texto-faixa {
+      display: inline-block;
+      padding-left: 100%;
+      animation: mover 15s linear infinite;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+    }
+
+    @keyframes mover {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-100%);
+      }
+    }
+
+.texto-faixa img {
+  height: 20px;           
+  width: auto;          
+  vertical-align: middle; 
+  margin: 0 10px;       
+  object-fit: contain;    
+  display: inline-block;  
+
+.roda{
+  border: #2ea44f;
+  
+}
