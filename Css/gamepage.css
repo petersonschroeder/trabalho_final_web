@@ -1,0 +1,80 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-style: normal;
+  }
+  
+  /* Container principal */
+  .information-game {
+    display: flex;
+    gap: 20px; /* Espaço entre imagem e lista */
+    align-items: flex-start; /* Alinha os itens no topo */
+  }
+  
+  /* Bloco de imagem */
+  .image-block {
+    height: 400px;
+    width: 100%; /* Corrigido: agora com unidade */
+    background-color: #818181;
+  }
+  
+  /* Bloco da lista */
+  .list-information {
+    display: flex;
+    justify-content: flex-start;
+    width: 80%;
+  }
+  
+  /* Lista em si */
+  .list-information ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+    background-color: rgb(175, 129, 129);
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  /* Primeiro item com cor diferente */
+  .list-information ul > :first-child {
+    background-color: rgb(221, 74, 74);
+    color: white;
+  }
+  
+  /* Itens da lista */
+  .list-information li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    cursor: pointer;
+    background-color: rgb(127, 172, 199);
+    padding: 8px 15px;
+    border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+  }
+  
+  .list-information li:hover {
+    background-color: #f0d6b6;
+  }
+  
+  /* Seção adicional (ainda vazia) */
+  .game-section {
+    /* Estilos futuros aqui */
+  }
+
+  .decription-content{
+    display: flex;
+    
+  }
+  

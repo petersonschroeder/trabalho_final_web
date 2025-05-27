@@ -1,3 +1,11 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-style: normal;
+}
+
 body {
   background-color: #121212;
   color: #f1f1f1;
@@ -208,3 +216,7 @@ body {
   color: inherit;
   display: block;
 }
+
+
+
+
