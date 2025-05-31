@@ -58,71 +58,57 @@
           </div>
         </div>
       </nav>
-
-      <!-- Banner / Faixa de Aviso -->
-      <div class="faixa">
-        <div
-          class="texto-faixa d-flex align-items-center justify-content-center gap-2 py-2"
-        >
-          <img
-            src="https://images.pexels.com/photos/30413911/pexels-photo-30413911/free-photo-of-vista-serena-do-lago-com-folhagem-de-outono.jpeg"
-            alt="Ícone"
-            width="30"
-          />
-          <span
-            >Atenção: Promoção especial essa semana! Não perca! | Novo produto
-            disponível!</span
-          >
-          <img
-            src="https://images.pexels.com/photos/30413911/pexels-photo-30413911/free-photo-of-vista-serena-do-lago-com-folhagem-de-outono.jpeg"
-            alt="Ícone"
-            width="30"
-          />
-        </div>
-      </div>
     </header>
 
     <!-- Conteúdo Principal -->
     <main>
       <div class="container">
-        <section class="game-details mt-5">
-          <header>
-            <h3 class="game-title">Game Name</h3>
-          </header>
+        <h2 class="game-title mt-5">Game Name</h2>
 
-          <section
-            class="information-game d-flex flex-column flex-md-row gap-3 mt-3"
-          >
-            <!-- Imagem ou banner do jogo -->
-            <div class="image-block">Imagem ou banner aqui</div>
+        <article class="d-flex flex-column flex-md-row gap-4 mt-4">
+          <!-- Bloco da imagem e descrição -->
+          <section class="image-description flex-grow-1">
+            <figure class="image-block mb-3">
+              <img
+                src="caminho/para/imagem.jpg"
+                alt="Imagem do jogo Game Name"
+                class="img-fluid rounded"
+              />
+              <figcaption class="visually-hidden">
+                Imagem ilustrativa do jogo
+              </figcaption>
+            </figure>
 
-            <!-- Ações do jogo -->
-            <nav class="list-information text-center justify-content-center">
-              <ul>
-                <li>Adicionar aos Favoritos</li>
-                <li>Página da loja</li>
-                <li>Outra ação</li>
-              </ul>
-            </nav>
+            <div class="extra-content">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
+                provident distinctio ipsum recusandae. Explicabo, id temporibus
+                esse dolores hic impedit nesciunt sed! Accusamus atque libero
+                culpa voluptatum fugit nulla neque.
+              </p>
+            </div>
           </section>
-        </section>
 
-        <section class="extra-content mt-4">
-          <div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
-            provident distinctio ipsum recusandae. Explicabo, id temporibus esse
-            dolores hic impedit nesciunt sed! Accusamus atque libero culpa
-            voluptatum fugit nulla neque.
-          </div>
-          <div class="decription-content">
-            <ul>
-              <li>PC</li>
-              <li>Playstation</li>
-              <li>Xbox</li>
-            </ul>
-          </div>
-          <div></div>
-        </section>
+          <!-- Bloco das ações -->
+          <aside
+            class="list-information text-center d-flex flex-column justify-content-end"
+            style="height: 100%"
+          >
+            <div>
+              <ul class="list-unstyled d-flex flex-column gap-2">
+                <li>
+                  <button class="btn w-100">Adicionar aos Favoritos</button>
+                </li>
+                <li>
+                  <a href="#" class="btn w-100">Página da loja</a>
+                </li>
+                <li>
+                  <button class="btn w-100">Outra ação</button>
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </article>
       </div>
     </main>
 
