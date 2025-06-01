@@ -1,5 +1,26 @@
 import { buscarTodosGiveaways, formatarGiveaway } from "../JS/api.js";
 
+document.addEventListener("DOMContentLoaded", async () => {
+  const giveaways = await buscarTodosGiveaways();
+  const giveawayFormatado = giveaways.map(formatarGiveaway);
+
+  renderizarPorTipo(giveawayFormatado, "destaqueContainer", "Game");
+  renderizarPorTipo(giveawayFormatado, "destaqueDLCs", "DLC");
+
+  document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("btn-favoritar")) {
+      e.preventDefault();
+
+      const jogoId = e.target.getAttribute("data-id");
+
+      const jogo = giveawayFormatado.find((j) => j.id === jogoId);
+      if (jogo) {
+        salvarFavorito(jogo);
+      }
+    }
+  });
+});
+
 function criarCard(jogo) {
   const card = document.createElement("div");
   card.classList.add("card-custom");
@@ -10,21 +31,11 @@ function criarCard(jogo) {
           <a class="btn-card" aria-label="Ver na loja" href="${jogo.open_giveaway}" target="_blank">🛒</a>
       `;
     }
-    if (jogo.type === "Game") {
-      return `
-        <a class="btn-card" aria-label="Favoritar" href="#">❤️</a>
-        <a class="btn-card" aria-label="Ver na loja" href="${jogo.open_giveaway}" target="_blank">🛒</a>
-        <a class="btn-card" aria-label="Compartilhar" href="#">🔗</a>
-      `;
-    }
-    if (jogo.type === "DLC") {
-      return `
-        <a class="btn-card" aria-label="Favoritar" href="#">❤️</a>
-        <a class="btn-card" aria-label="Ver na loja" href="${jogo.open_giveaway}" target="_blank">🛒</a>
-        <a class="btn-card" aria-label="Compartilhar" href="#">🔗</a>
-      `;
-    }
-    return "";
+    return `
+      <a href="#" class="btn-card btn-favoritar" aria-label="Favoritar" data-id="${jogo.id}">❤️</a>
+      <a class="btn-card" aria-label="Ver na loja" href="${jogo.open_giveaway}" target="_blank">🛒</a>
+      <a class="btn-card" aria-label="Compartilhar" href="#">🔗</a>
+    `;
   })();
 
   card.innerHTML = `
@@ -60,11 +71,14 @@ function renderizarPorTipo(destaques, containerId, tipo = null, limite = 5) {
   });
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const giveaways = await buscarTodosGiveaways();
-const giveawayFormatado = giveaways.map(formatarGiveaway);
+function salvarFavorito(jogo) {
+  const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 
-
-  renderizarPorTipo(giveawayFormatado, "destaqueContainer", "Game");
-  renderizarPorTipo(giveawayFormatado, "destaqueDLCs", "DLC");
-});
+  if (!favoritos.find((fav) => fav.id === jogo.id)) {
+    favoritos.push(jogo);
+    localStorage.setItem("favoritos", JSON.stringify(favoritos));
+    alert(`"${jogo.title}" adicionado aos favoritos!`);
+  } else {
+    alert(`"${jogo.title}" já está nos favoritos!`);
+  }
+}
