@@ -120,8 +120,7 @@ body {
 
 /* Cards */
 .card-custom {
-  max-width: 14rem; /* 224px */
-  padding: 1rem;
+  width: 100%; /* 224px */
   margin: 0 auto;
   border-radius: 12px;
   background-color: #212529;
@@ -143,7 +142,6 @@ body {
 
 .card-img-container {
   width: 100%;
-  height: 180px;
   overflow: hidden;
   border-radius: 8px;
 }
@@ -328,8 +326,7 @@ body {
 .h3-title {
   margin-top: 10%;
   color: #fff;
-  font-weight: bold;
-  text-align: center;
+  font-size: 18px;
 }
 
 .link-hover-move {
@@ -350,5 +347,3 @@ body {
 .link-hover-move:focus span {
   transform: translateX(5px);
 }
-
-

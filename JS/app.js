@@ -1,47 +1,70 @@
 import { buscarTodosGiveaways, formatarGiveaway } from "../JS/api.js";
 
-function limitarTexto(texto, maxChars) {
-  if (!texto) return "";
-  return texto.length > maxChars ? texto.slice(0, maxChars) + "..." : texto;
+function criarCard(jogo) {
+  const card = document.createElement("div");
+  card.classList.add("card-custom");
+
+  const conteudoCard = (() => {
+    if (jogo.type !== "Game" && jogo.type !== "DLC") {
+      return `
+          <a class="btn-card" aria-label="Ver na loja" href="${jogo.open_giveaway}" target="_blank">🛒</a>
+      `;
+    }
+    if (jogo.type === "Game") {
+      return `
+        <a class="btn-card" aria-label="Favoritar" href="#">❤️</a>
+        <a class="btn-card" aria-label="Ver na loja" href="${jogo.open_giveaway}" target="_blank">🛒</a>
+        <a class="btn-card" aria-label="Compartilhar" href="#">🔗</a>
+      `;
+    }
+    if (jogo.type === "DLC") {
+      return `
+        <a class="btn-card" aria-label="Favoritar" href="#">❤️</a>
+        <a class="btn-card" aria-label="Ver na loja" href="${jogo.open_giveaway}" target="_blank">🛒</a>
+        <a class="btn-card" aria-label="Compartilhar" href="#">🔗</a>
+      `;
+    }
+    return "";
+  })();
+
+  card.innerHTML = `
+    <div class="card-img-container">
+      <img src="${jogo.image}" class="card-img" alt="Capa do Jogo ${jogo.title}" />
+    </div>
+    <div class="card-body">
+      <h3 class="h3-title">${jogo.title}</h3>
+      <div class="container d-flex justify-content-center gap-3 mt-3">
+        ${conteudoCard}
+      </div>
+    </div>
+  `;
+
+  return card;
 }
 
-function renderizarGiveaways(giveaways) {
-  const container = document.getElementById("gamesContainer");
+function renderizarPorTipo(destaques, containerId, tipo = null, limite = 5) {
+  const container = document.getElementById(containerId);
+  if (!container) {
+    console.warn(`Elemento com id "${containerId}" não encontrado no HTML.`);
+    return;
+  }
   container.innerHTML = "";
 
-  giveaways.slice(0, 5).forEach((giveaway) => {
-    const card = document.createElement("article");
-    card.classList.add("col", "p-2", "article");
+  let filtrados = tipo
+    ? destaques.filter((jogo) => jogo.type === tipo)
+    : destaques;
 
-    card.innerHTML = `
-  <a>
-  <div class="card-custom shadow-lg rounded">
-    <div class="card-img-container">
-      <img src="${giveaway.image}" alt="${giveaway.title}" class="card-img" />
-    </div>
-    <div class="card-footer-custom p-3 d-flex flex-column justify-content-between">
-      <h5 class="card-title text-center fw-bold mb-2">${giveaway.title}</h5>
-      <p class="card-date text-muted small text-center mb-3">
-        Termina em: ${giveaway.end_date || "Indeterminado"}
-      </p>
-      <a href="${
-        giveaway.open_giveaway
-      }" target="_blank" class="btn-card">Acessar</a>
-    </div>
-  </div></a>
-`;
-
+  filtrados.slice(0, limite).forEach((jogo) => {
+    const card = criarCard(jogo);
     container.appendChild(card);
   });
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
   const giveaways = await buscarTodosGiveaways();
-  const giveawaysFormatados = giveaways.map(formatarGiveaway);
-  renderizarGiveaways(giveawaysFormatados);
+const giveawayFormatado = giveaways.map(formatarGiveaway);
+
+
+  renderizarPorTipo(giveawayFormatado, "destaqueContainer", "Game");
+  renderizarPorTipo(giveawayFormatado, "destaqueDLCs", "DLC");
 });
-
-function renderizarDlcs(giveaway) {}
-
-
-
