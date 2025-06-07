@@ -52,7 +52,7 @@ function renderizarFavoritos(containerId) {
 
 function removerFavorito(id) {
   let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
-  favoritos = favoritos.filter(jogo => jogo.id !== id);
+  favoritos = favoritos.filter((jogo) => String(jogo.id) !== id);
   localStorage.setItem("favoritos", JSON.stringify(favoritos));
 }
 
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderizarFavoritos("listaFavoritos");
 });
 
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
   if (event.target.classList.contains("btn-remover")) {
     event.preventDefault();
     const jogoId = event.target.getAttribute("data-id");
@@ -72,7 +72,7 @@ document.addEventListener("click", function(event) {
     event.preventDefault();
     const titulo = event.target.getAttribute("data-title");
     const link = event.target.getAttribute("data-link");
-    navigator.clipboard.writeText(`${titulo} - ${link}`).then(() => {
+    navigator.clipboard.writeText(`${link}`).then(() => {
       alert("Link copiado para a área de transferência!");
     });
   }

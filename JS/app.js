@@ -1,25 +1,21 @@
 import { buscarTodosGiveaways, formatarGiveaway } from "../JS/api.js";
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const giveaways = await buscarTodosGiveaways();
-  const giveawayFormatado = giveaways.map(formatarGiveaway);
-
-  renderizarPorTipo(giveawayFormatado, "destaqueContainer", "Game");
-  renderizarPorTipo(giveawayFormatado, "destaqueDLCs", "DLC");
-
-  document.addEventListener("click", (e) => {
-    if (e.target.classList.contains("btn-favoritar")) {
-      e.preventDefault();
-
-      const jogoId = e.target.getAttribute("data-id");
-
-      const jogo = giveawayFormatado.find((j) => j.id === jogoId);
-      if (jogo) {
-        salvarFavorito(jogo);
-      }
-    }
+function getQueryParams() {
+  const params = {};
+  const urlParams = new URLSearchParams(window.location.search);
+  urlParams.forEach((value, key) => {
+    params[key] = value;
   });
-});
+  return params;
+}
+
+function saveLocalStorage(obj) {
+  Object.entries(obj).forEach(([key, value]) => {
+    localStorage.setItem(key, value);
+  });
+}
+
+
 
 function criarCard(jogo) {
   const card = document.createElement("div");
@@ -27,9 +23,7 @@ function criarCard(jogo) {
 
   const conteudoCard = (() => {
     if (jogo.type !== "Game" && jogo.type !== "DLC") {
-      return `
-          <a class="btn-card" aria-label="Ver na loja" href="${jogo.open_giveaway}" target="_blank">🛒</a>
-      `;
+      return `<a class="btn-card" aria-label="Ver na loja" href="${jogo.open_giveaway}" target="_blank">🛒</a>`;
     }
     return `
       <a href="#" class="btn-card btn-favoritar" aria-label="Favoritar" data-id="${jogo.id}">❤️</a>
@@ -49,36 +43,63 @@ function criarCard(jogo) {
       </div>
     </div>
   `;
-
   return card;
 }
 
 function renderizarPorTipo(destaques, containerId, tipo = null, limite = 5) {
   const container = document.getElementById(containerId);
-  if (!container) {
-    console.warn(`Elemento com id "${containerId}" não encontrado no HTML.`);
-    return;
-  }
+  if (!container) return;
   container.innerHTML = "";
-
-  let filtrados = tipo
-    ? destaques.filter((jogo) => jogo.type === tipo)
-    : destaques;
-
+  const filtrados = tipo ? destaques.filter((j) => j.type === tipo) : destaques;
   filtrados.slice(0, limite).forEach((jogo) => {
-    const card = criarCard(jogo);
-    container.appendChild(card);
+    container.appendChild(criarCard(jogo));
   });
 }
 
-function salvarFavorito(jogo) {
-  const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+document.addEventListener("DOMContentLoaded", async () => {
+  const params = getQueryParams();
+  if (Object.keys(params).length) {
+    saveLocalStorage(params);
+  }
+  const giveaways = await buscarTodosGiveaways();
+  const giveawayFormatado = giveaways.map(formatarGiveaway);
 
-  if (!favoritos.find((fav) => fav.id === jogo.id)) {
-    favoritos.push(jogo);
-    localStorage.setItem("favoritos", JSON.stringify(favoritos));
+  renderizarPorTipo(giveawayFormatado, "destaqueContainer", "Game");
+  renderizarPorTipo(giveawayFormatado, "destaqueDLCs", "DLC");
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("btn-favoritar")) return;
+    e.preventDefault();
+
+    console.log("Clicou no coração!");
+
+    const jogoId = e.target.getAttribute("data-id");
+    console.log("ID do jogo clicado:", jogoId);
+
+    const jogo = giveawayFormatado.find((j) => String(j.id) === jogoId);
+    if (jogo) {
+      console.log("Jogo encontrado para favoritar:", jogo);
+      saveFavorite(jogo);
+    } else {
+      console.log("Jogo NÃO encontrado para esse ID");
+    }
+  });
+});
+
+function saveFavorite(jogo) {
+  console.log("Tentando salvar favorito:", jogo);
+  const chave = "favoritos";
+  const atuais = JSON.parse(localStorage.getItem(chave) || "[]");
+  console.log("Favoritos atuais no localStorage:", atuais);
+
+  if (!atuais.some((f) => f.id === jogo.id)) {
+    atuais.push(jogo);
+    localStorage.setItem(chave, JSON.stringify(atuais));
+    console.log(`"${jogo.title}" adicionado aos favoritos!`);
     alert(`"${jogo.title}" adicionado aos favoritos!`);
   } else {
+    console.log(`"${jogo.title}" já está nos favoritos!`);
     alert(`"${jogo.title}" já está nos favoritos!`);
   }
 }
+
