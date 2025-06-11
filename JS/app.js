@@ -56,6 +56,26 @@ function renderizarPorTipo(destaques, containerId, tipo = null, limite = 5) {
   });
 }
 
+
+
+function saveFavorite(jogo) {
+  console.log("Tentando salvar favorito:", jogo);
+  const chave = "favoritos";
+  const atuais = JSON.parse(localStorage.getItem(chave) || "[]");
+  console.log("Favoritos atuais no localStorage:", atuais);
+
+  if (!atuais.some((f) => f.id === jogo.id)) {
+    atuais.push(jogo);
+    localStorage.setItem(chave, JSON.stringify(atuais));
+    console.log(`"${jogo.title}" adicionado aos favoritos!`);
+    alert(`"${jogo.title}" adicionado aos favoritos!`);
+  } else {
+    console.log(`"${jogo.title}" já está nos favoritos!`);
+    alert(`"${jogo.title}" já está nos favoritos!`);
+  }
+}
+
+
 document.addEventListener("DOMContentLoaded", async () => {
 
   const params = getQueryParams();
@@ -100,21 +120,4 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
-
-function saveFavorite(jogo) {
-  console.log("Tentando salvar favorito:", jogo);
-  const chave = "favoritos";
-  const atuais = JSON.parse(localStorage.getItem(chave) || "[]");
-  console.log("Favoritos atuais no localStorage:", atuais);
-
-  if (!atuais.some((f) => f.id === jogo.id)) {
-    atuais.push(jogo);
-    localStorage.setItem(chave, JSON.stringify(atuais));
-    console.log(`"${jogo.title}" adicionado aos favoritos!`);
-    alert(`"${jogo.title}" adicionado aos favoritos!`);
-  } else {
-    console.log(`"${jogo.title}" já está nos favoritos!`);
-    alert(`"${jogo.title}" já está nos favoritos!`);
-  }
-}
 
