@@ -15,9 +15,7 @@ function saveLocalStorage(obj) {
   });
 }
 
-
-
-function criarCard(jogo) {
+function criarCard(jogo, todosJogos) {
   const card = document.createElement("div");
   card.classList.add("card-custom");
 
@@ -43,6 +41,18 @@ function criarCard(jogo) {
       </div>
     </div>
   `;
+
+  card.addEventListener("click", (e) => {
+    if (e.target.classList.contains("btn-card")) return;
+
+    const todos = JSON.parse(localStorage.getItem("todosGiveaways") || "[]");
+    if (!todos.length) {
+      localStorage.setItem("todosGiveaways", JSON.stringify(todosJogos));
+    }
+
+    window.location.href = `Pages/gamepage.html?id=${jogo.id}`;
+  });
+
   return card;
 }
 
@@ -52,7 +62,7 @@ function renderizarPorTipo(destaques, containerId, tipo = null, limite = 5) {
   container.innerHTML = "";
   const filtrados = tipo ? destaques.filter((j) => j.type === tipo) : destaques;
   filtrados.slice(0, limite).forEach((jogo) => {
-    container.appendChild(criarCard(jogo));
+    container.appendChild(criarCard(jogo, destaques));
   });
 }
 
@@ -102,4 +112,3 @@ function saveFavorite(jogo) {
     alert(`"${jogo.title}" já está nos favoritos!`);
   }
 }
-
