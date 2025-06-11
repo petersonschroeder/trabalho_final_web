@@ -1,43 +1,57 @@
-// Pega os parâmetros da URL
-function getQueryParams() {
+document.addEventListener("DOMContentLoaded", () => {
+  // Pega o id da URL
   const params = new URLSearchParams(window.location.search);
-  return {
-    id: params.get("id")
-  };
-}
+  const id = params.get("id");
 
-// Pega os dados salvos (simulação - pode vir do localStorage ou API)
-function getJogoPorId(id) {
-  const todosJogos = JSON.parse(localStorage.getItem("todosGiveaways")) || [];
-  return todosJogos.find(jogo => String(jogo.id) === String(id));
-}
-
-// Preenche os elementos HTML da página
-function renderizarJogo(jogo) {
-  if (!jogo) {
-    document.querySelector(".game-title").textContent = "Jogo não encontrado.";
+  if (!id) {
+    alert("ID do jogo não fornecido na URL.");
     return;
   }
 
+  // Busca todos os jogos no localStorage
+  const todos = JSON.parse(localStorage.getItem("todosGiveaways") || "[]");
+  const jogo = todos.find((j) => String(j.id) === String(id));
+
+  if (!jogo) {
+    alert("Jogo não encontrado.");
+    return;
+  }
+
+  // Atualiza a interface com os dados do jogo
   document.querySelector(".game-title").textContent = jogo.title;
-  const imagem = document.querySelector(".image-block img");
-  imagem.src = jogo.image;
-  imagem.alt = `Imagem do jogo ${jogo.title}`;
+  const imgElem = document.querySelector(".image-block img");
+  imgElem.src = jogo.image || "";
+  imgElem.alt = `Imagem do jogo ${jogo.title}`;
 
-  const descricao = jogo.description || "Sem descrição disponível.";
-  document.querySelector(".extra-content").innerHTML = descricao;
+  document.getElementById("btn-loja").href = jogo.open_giveaway || "#";
 
-  // Atualiza o link para a loja (assumindo que seja o segundo botão tipo <a>)
-  const botoes = document.querySelectorAll("a.btn");
-  botoes.forEach(btn => {
-    if (btn.textContent.includes("Página da loja")) {
-      btn.href = jogo.open_giveaway;
+  document.getElementById("descricao-jogo").textContent =
+    jogo.description || "Descrição não disponível para este jogo.";
+
+  // Botão Favoritar
+  document.getElementById("btn-favoritar").addEventListener("click", () => {
+    const favoritos = JSON.parse(localStorage.getItem("favoritos") || "[]");
+
+    // Verifica se já está favoritado
+    const existe = favoritos.some((f) => String(f.id) === String(jogo.id));
+
+    if (existe) {
+      alert(`"${jogo.title}" já está nos favoritos.`);
+    } else {
+      favoritos.push(jogo);
+      localStorage.setItem("favoritos", JSON.stringify(favoritos));
+      alert(`"${jogo.title}" adicionado aos favoritos!`);
     }
   });
-}
 
-document.addEventListener("DOMContentLoaded", () => {
-  const { id } = getQueryParams();
-  const jogo = getJogoPorId(id);
-  renderizarJogo(jogo);
+  // Botão Compartilhar (copia URL da página atual)
+  document.getElementById("btn-compartilhar").addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      alert("Link copiado para a área de transferência!");
+    } catch (err) {
+      alert("Erro ao copiar o link. Tente copiar manualmente.");
+      console.error(err);
+    }
+  });
 });
