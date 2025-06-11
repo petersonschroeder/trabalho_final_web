@@ -28,7 +28,7 @@ function criarCard(jogo) {
     return `
       <a href="#" class="btn-card btn-favoritar" aria-label="Favoritar" data-id="${jogo.id}">❤️</a>
       <a class="btn-card" aria-label="Ver na loja" href="${jogo.open_giveaway}" target="_blank">🛒</a>
-      <a class="btn-card" aria-label="Compartilhar" href="#">🔗</a>
+      <a class="btn-card btn-compartilhar" aria-label="Compartilhar" href="#">🔗</a>
     `;
   })();
 
@@ -57,34 +57,49 @@ function renderizarPorTipo(destaques, containerId, tipo = null, limite = 5) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+
   const params = getQueryParams();
   if (Object.keys(params).length) {
     saveLocalStorage(params);
   }
+
   const giveaways = await buscarTodosGiveaways();
   const giveawayFormatado = giveaways.map(formatarGiveaway);
+
 
   renderizarPorTipo(giveawayFormatado, "destaqueContainer", "Game");
   renderizarPorTipo(giveawayFormatado, "destaqueDLCs", "DLC");
 
-  document.addEventListener("click", (e) => {
-    if (!e.target.classList.contains("btn-favoritar")) return;
-    e.preventDefault();
+  document.addEventListener("click", (event) => {
+    const target = event.target;
 
-    console.log("Clicou no coração!");
+    if (target.classList.contains("btn-favoritar")) {
+      event.preventDefault();
 
-    const jogoId = e.target.getAttribute("data-id");
-    console.log("ID do jogo clicado:", jogoId);
+      const jogoId = target.getAttribute("data-id");
+      const jogo = giveawayFormatado.find((j) => String(j.id) === jogoId);
 
-    const jogo = giveawayFormatado.find((j) => String(j.id) === jogoId);
-    if (jogo) {
-      console.log("Jogo encontrado para favoritar:", jogo);
-      saveFavorite(jogo);
-    } else {
-      console.log("Jogo NÃO encontrado para esse ID");
+      if (jogo) {
+        saveFavorite(jogo);
+      }
+    }
+
+    if (target.classList.contains("btn-compartilhar")) {
+      event.preventDefault();
+
+      const card = target.closest(".card-custom");
+      const titulo = card.querySelector(".h3-title")?.textContent || "Jogo";
+      const link = card.querySelector('a[aria-label="Ver na loja"]')?.href;
+
+      if (link) {
+        navigator.clipboard.writeText(link).then(() => {
+          alert(`Link para "${titulo}" copiado para a área de transferência!`);
+        });
+      }
     }
   });
 });
+
 
 function saveFavorite(jogo) {
   console.log("Tentando salvar favorito:", jogo);
