@@ -73,6 +73,7 @@ function saveFavorite(jogo) {
   const chave = "favoritos";
   const atuais = JSON.parse(localStorage.getItem(chave) || "[]");
   console.log("Favoritos atuais no localStorage:", atuais);
+  
 
   if (!atuais.some((f) => f.id === jogo.id)) {
     atuais.push(jogo);
