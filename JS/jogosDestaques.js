@@ -1,4 +1,4 @@
-import { buscarTodosGiveaways, formatarGiveaway } from "./api.js";
+import { buscarTodosGiveaways, formatarGiveaway } from "../JS/api.js";
 
 function getQueryParams() {
   const params = {};
@@ -62,14 +62,20 @@ function renderizarPorTipo(destaques, containerId, tipo = null, limite = null) {
 
   container.innerHTML = "";
 
-  const filtrados = tipo ? destaques.filter((j) => j.type === tipo) : destaques;
+  const row = document.createElement("div");
+  row.classList.add("row", "g-3");
 
-  const jogosParaRenderizar =
-    limite != null ? filtrados.slice(0, limite) : filtrados;
+  const filtrados = tipo ? destaques.filter((j) => j.type === tipo) : destaques;
+  const jogosParaRenderizar = limite != null ? filtrados.slice(0, limite) : filtrados;
 
   jogosParaRenderizar.forEach((jogo) => {
-    container.appendChild(criarCard(jogo, destaques));
+    const col = document.createElement("div");
+    col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3"); // 4 por linha em desktop
+    col.appendChild(criarCard(jogo, destaques));
+    row.appendChild(col);
   });
+
+  container.appendChild(row);
 }
 
 function saveFavorite(jogo) {
@@ -98,8 +104,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const giveaways = await buscarTodosGiveaways();
   const giveawayFormatado = giveaways.map(formatarGiveaway);
 
-  renderizarPorTipo(giveawayFormatado, "destaqueContainer", "Game", 4);
-  renderizarPorTipo(giveawayFormatado, "destaqueDLCs", "DLC", 4);
+  renderizarPorTipo(giveawayFormatado, "destaqueContainer", "Game");
 
   document.addEventListener("click", (event) => {
     const target = event.target;
