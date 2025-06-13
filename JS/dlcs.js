@@ -66,11 +66,12 @@ function renderizarPorTipo(destaques, containerId, tipo = null, limite = null) {
   row.classList.add("row", "g-3");
 
   const filtrados = tipo ? destaques.filter((j) => j.type === tipo) : destaques;
-  const jogosParaRenderizar = limite != null ? filtrados.slice(0, limite) : filtrados;
+  const jogosParaRenderizar =
+    limite != null ? filtrados.slice(0, limite) : filtrados;
 
   jogosParaRenderizar.forEach((jogo) => {
     const col = document.createElement("div");
-    col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3"); // 4 por linha em desktop
+    col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3"); 
     col.appendChild(criarCard(jogo, destaques));
     row.appendChild(col);
   });

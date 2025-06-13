@@ -96,6 +96,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   const giveaways = await buscarTodosGiveaways();
+
+  giveaways.pla
   const giveawayFormatado = giveaways.map(formatarGiveaway);
 
   renderizarPorTipo(giveawayFormatado, "destaqueContainer", "Game", 4);

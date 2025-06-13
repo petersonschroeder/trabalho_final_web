@@ -35,6 +35,7 @@ function formatarGiveaway(dado) {
     open_giveaway: dado.open_giveaway,
     type: dado.type,
     id: dado.id,
+    platforms: dado.platforms,
   };
 }
 
