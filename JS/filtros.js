@@ -7,47 +7,74 @@ function criarOption(texto, valor) {
   return option;
 }
 
-function criarSelectPlataforma(id, plataformas) {
-  const select = document.createElement("select");
-  select.id = id;
-  select.className = "form-select";
-  select.appendChild(criarOption("Todas", ""));
-  plataformas.forEach((plataforma) => {
-    const nomeFormatado =
-      plataforma.charAt(0).toUpperCase() + plataforma.slice(1);
-    select.appendChild(criarOption(nomeFormatado, plataforma));
-  });
-  return select;
-}
-
-function criarFiltroColuna(id, labelTexto, plataformas) {
+function criarFiltroColuna(id, label, opcoes) {
   const col = document.createElement("div");
-  col.className = "col-md-3 col-sm-6";
+  col.className = "col-md-3 col-sm-6 mb-3";
 
-  const label = document.createElement("label");
-  label.className = "form-label";
-  label.htmlFor = id;
-  label.textContent = labelTexto;
+  const labelElem = document.createElement("label");
+  labelElem.setAttribute("for", id);
+  labelElem.className = "form-label";
+  labelElem.textContent = label;
 
-  const select = criarSelectPlataforma(id, plataformas);
-  col.appendChild(label);
+  const select = document.createElement("select");
+  select.className = "form-select";
+  select.id = id;
+
+  opcoes.forEach((op) => {
+    const option = document.createElement("option");
+    option.value = op.value;
+    option.textContent = op.label;
+    select.appendChild(option);
+  });
+
+  col.appendChild(labelElem);
   col.appendChild(select);
+
   return col;
 }
 
-function gerarFiltros(containerId, numFiltros, plataformas) {
+function gerarFiltros(containerId, plataformas) {
   const container = document.getElementById(containerId);
   if (!container) return;
   container.innerHTML = "";
 
-  for (let i = 1; i <= numFiltros; i++) {
-    const filtro = criarFiltroColuna(
-      `plataforma${i}`,
-      "Plataforma",
-      plataformas
-    );
-    container.appendChild(filtro);
-  }
+  // Filtro Plataforma
+  const plataformaFiltro = criarFiltroColuna("filtroPlataforma", "Plataforma", [
+    { value: "", label: "Todas" },
+    ...plataformas.map((p) => ({
+      value: p.toLowerCase(),
+      label: p.charAt(0).toUpperCase() + p.slice(1),
+    })),
+  ]);
+  container.appendChild(plataformaFiltro);
+
+  // Filtro Tipo
+  const tipoFiltro = criarFiltroColuna("filtroTipo", "Tipo", [
+    { value: "", label: "Todos" },
+    { value: "Game", label: "Game" },
+    { value: "Loot", label: "Loot" },
+    { value: "Beta", label: "Beta" },
+  ]);
+  container.appendChild(tipoFiltro);
+
+  // Filtro Validade (expiração)
+  const validadeFiltro = criarFiltroColuna("filtroValidade", "Disponibilidade", [
+    { value: "", label: "Todas" },
+    { value: "hoje", label: "Expiram hoje" },
+    { value: "3dias", label: "Expiram em até 3 dias" },
+    { value: "7dias", label: "Expiram em até 7 dias" },
+    { value: "ativos", label: "Ativos (sem data ou com data futura)" },
+  ]);
+  container.appendChild(validadeFiltro);
+
+  // Filtro Popularidade (users)
+  const popFiltro = criarFiltroColuna("filtroPopularidade", "Popularidade", [
+    { value: "", label: "Todas" },
+    { value: "baixa", label: "Menos de 1.000" },
+    { value: "media", label: "1.000 a 10.000" },
+    { value: "alta", label: "Mais de 10.000" },
+  ]);
+  container.appendChild(popFiltro);
 }
 
 function criarCard(jogo) {
@@ -56,28 +83,40 @@ function criarCard(jogo) {
 
   col.innerHTML = `
     <div class="card h-100 text-center shadow-sm p-2">
-      <img src="${jogo.image}" class="card-img-top" alt="Capa do Jogo ${
-    jogo.title
-  }" style="object-fit: cover; height: 180px" />
+      <img src="${jogo.image}" class="card-img-top" alt="Capa do Jogo ${jogo.title}" style="object-fit: cover; height: 180px" />
       <div class="card-body">
         <h6 class="card-title">${jogo.title}</h6>
         <p class="card-text" style="font-size: 0.85rem; color: #666;">
           Plataforma: ${jogo.platforms || "—"}
         </p>
+        <p class="card-text" style="font-size: 0.85rem; color: #666;">
+          Tipo: ${jogo.type || "—"}
+        </p>
+        <p class="card-text" style="font-size: 0.85rem; color: #666;">
+          Expira em: ${jogo.end_date || "N/A"}
+        </p>
+        <p class="card-text" style="font-size: 0.85rem; color: #666;">
+          Usuários: ${jogo.users || 0}
+        </p>
         <div class="d-flex justify-content-center gap-2">
-          <a class="btn btn-sm btn-outline-danger btn-favoritar" href="#" data-id="${
-            jogo.id
-          }" aria-label="Favoritar">❤️</a>
-          <a class="btn btn-sm btn-outline-primary" href="${
-            jogo.open_giveaway
-          }" target="_blank" aria-label="Ver na loja">🛒</a>
-          <a class="btn btn-sm btn-outline-secondary btn-compartilhar" href="#" aria-label="Compartilhar" data-link="${
-            jogo.open_giveaway
-          }">🔗</a>
+          <a class="btn btn-sm btn-outline-danger btn-favoritar" href="#" data-id="${jogo.id}" aria-label="Favoritar">❤️</a>
+          <a class="btn btn-sm btn-outline-primary" href="${jogo.open_giveaway}" target="_blank" aria-label="Ver na loja">🛒</a>
+          <a class="btn btn-sm btn-outline-secondary btn-compartilhar" href="#" aria-label="Compartilhar" data-link="${jogo.open_giveaway}">🔗</a>
         </div>
       </div>
     </div>
   `;
+
+    col.addEventListener("click", (e) => {
+    if (e.target.classList.contains("btn-card")) return;
+
+    const todos = JSON.parse(localStorage.getItem("todosGiveaways") || "[]");
+    if (!todos.length) {
+      localStorage.setItem("todosGiveaways", JSON.stringify(todosJogos));
+    }
+
+    window.location.href = `Pages/gamepage.html?id=${jogo.id}`;
+  });
   return col;
 }
 
@@ -99,22 +138,72 @@ function renderizarJogos(lista) {
   });
 }
 
-function filtrarJogos(games, textoBusca, plataformasSelecionadas) {
+function isMesmoDia(data1, data2) {
+  return (
+    data1.getFullYear() === data2.getFullYear() &&
+    data1.getMonth() === data2.getMonth() &&
+    data1.getDate() === data2.getDate()
+  );
+}
+
+function diasEntre(dataInicial, dataFinal) {
+  const msPorDia = 1000 * 60 * 60 * 24;
+  const diffMs = dataFinal - dataInicial;
+  return Math.ceil(diffMs / msPorDia);
+}
+
+function filtrarJogos(games, textoBusca, plataformaSelecionada, tipoSelecionado, validadeSelecionada, popularidadeSelecionada) {
   const termo = textoBusca.trim().toLowerCase();
+  const hoje = new Date();
 
   return games.filter((jogo) => {
+    // Filtro por texto
     const titulo = jogo.title.toLowerCase();
     const textoMatch = titulo.includes(termo);
 
+    // Filtro por plataforma
     let plataformaMatch = true;
-    if (plataformasSelecionadas.length > 0) {
+    if (plataformaSelecionada && plataformaSelecionada !== "") {
       const plataformasDoJogo = (jogo.platforms || "").toLowerCase();
-      plataformaMatch = plataformasSelecionadas.some((p) =>
-        plataformasDoJogo.includes(p)
-      );
+      plataformaMatch = plataformasDoJogo.includes(plataformaSelecionada.toLowerCase());
     }
 
-    return textoMatch && plataformaMatch;
+    // Filtro por tipo
+    let tipoMatch = true;
+    if (tipoSelecionado && tipoSelecionado !== "") {
+      tipoMatch = (jogo.type || "").toLowerCase() === tipoSelecionado.toLowerCase();
+    }
+
+    // Filtro por validade
+    let validadeMatch = true;
+    if (validadeSelecionada && validadeSelecionada !== "") {
+      const dataFinal = jogo.end_date && jogo.end_date !== "N/A" ? new Date(jogo.end_date) : null;
+
+      if (validadeSelecionada === "hoje") {
+        validadeMatch = dataFinal ? isMesmoDia(dataFinal, hoje) : false;
+      } else if (validadeSelecionada === "3dias") {
+        validadeMatch = dataFinal ? diasEntre(hoje, dataFinal) <= 3 && dataFinal >= hoje : false;
+      } else if (validadeSelecionada === "7dias") {
+        validadeMatch = dataFinal ? diasEntre(hoje, dataFinal) <= 7 && dataFinal >= hoje : false;
+      } else if (validadeSelecionada === "ativos") {
+        validadeMatch = !dataFinal || dataFinal >= hoje;
+      }
+    }
+
+    // Filtro por popularidade
+    let popMatch = true;
+    const users = parseInt(jogo.users || 0, 10);
+    if (popularidadeSelecionada && popularidadeSelecionada !== "") {
+      if (popularidadeSelecionada === "baixa") {
+        popMatch = users < 1000;
+      } else if (popularidadeSelecionada === "media") {
+        popMatch = users >= 1000 && users <= 10000;
+      } else if (popularidadeSelecionada === "alta") {
+        popMatch = users > 10000;
+      }
+    }
+
+    return textoMatch && plataformaMatch && tipoMatch && validadeMatch && popMatch;
   });
 }
 
@@ -174,6 +263,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     formatarGiveaway(item)
   );
 
+  // Montar lista de plataformas únicas
   const plataformasSet = new Set();
   giveawaysFormatados.forEach((jogo) => {
     const plataformas = jogo.platforms?.split(",") || [];
@@ -181,28 +271,39 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   const plataformasPossiveis = [...plataformasSet];
 
-  const numFiltros = 4;
-  gerarFiltros("filtrosContainer", numFiltros, plataformasPossiveis);
+  // Gerar os filtros na UI
+  gerarFiltros("filtrosContainer", plataformasPossiveis);
+
+  // Renderizar lista completa inicialmente
   renderizarJogos(giveawaysFormatados);
+
+  // Configurar eventos globais para favoritos e compartilhamento
   configurarEventosGlobais(giveawaysFormatados);
 
+  // Botão e input da busca
   const btnBuscar = document.getElementById("btnBuscar");
   const inputBusca = document.getElementById("inputBusca");
 
   if (btnBuscar && inputBusca) {
     btnBuscar.addEventListener("click", () => {
       const texto = inputBusca.value || "";
-      const plataformasSelecionadas = [];
+      const plataformaSelecionada =
+        document.getElementById("filtroPlataforma")?.value || "";
+      const tipoSelecionado =
+        document.getElementById("filtroTipo")?.value || "";
+      const validadeSelecionada =
+        document.getElementById("filtroValidade")?.value || "";
+      const popularidadeSelecionada =
+        document.getElementById("filtroPopularidade")?.value || "";
 
-      for (let i = 1; i <= numFiltros; i++) {
-        const sel = document.getElementById(`plataforma${i}`);
-        if (sel && sel.value) {
-          plataformasSelecionadas.push(sel.value.toLowerCase());
-        }
-      }
-
-      const unicas = [...new Set(plataformasSelecionadas)];
-      const filtrados = filtrarJogos(giveawaysFormatados, texto, unicas);
+      const filtrados = filtrarJogos(
+        giveawaysFormatados,
+        texto,
+        plataformaSelecionada,
+        tipoSelecionado,
+        validadeSelecionada,
+        popularidadeSelecionada
+      );
       renderizarJogos(filtrados);
     });
 

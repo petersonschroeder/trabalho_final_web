@@ -1,115 +1,130 @@
-/* Reset básico */
-* {
+body {
+  background-color: #121212;
+  color: #ddd;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6; /* um pouco maior para melhor leitura */
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
-/* Bloco de imagem */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem; /* mais padding */
+}
+
+.game-title {
+  font-size: 2rem; /* ligeiramente maior */
+  font-weight: 700;
+  margin-bottom: 1.8rem; /* mais espaço abaixo */
+  color: #fff;
+  letter-spacing: 1px;
+}
+
 .image-block {
-  background-color: #818181;
+  background-color: #222;
   border-radius: 10px;
   overflow: hidden;
+  height: 360px; /* um pouco mais alto */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.7);
+  margin-bottom: 1.5rem; /* espaço extra abaixo */
 }
 
 .image-block img {
   width: 100%;
-  height: 500px; /* Mantém a proporção */
-  display: block;
-}
-
-/* Bloco da lista */
-.list-information {
-  width: 100%;
-  max-width: 250px; /* Limita a largura no desktop */
-}
-
-/* Lista em si */
-.list-information ul {
-  background-color: rgb(175, 129, 129);
-  padding: 10px;
+  height: 100%;
+  object-fit: cover;
   border-radius: 10px;
+  transition: transform 0.3s ease;
 }
 
-/* Itens da lista */
-.list-information li {
-  background-color: rgb(127, 172, 199);
-  padding: 8px 15px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.image-block img:hover {
+  transform: scale(1.03);
 }
 
-.list-information li:first-child {
-  background-color: rgb(221, 74, 74);
-  color: white;
-}
-
-.list-information li:hover {
-  background-color: #f0d6b6;
-}
-
-/* Seção adicional */
 .extra-content p {
-  margin-top: 1rem;
-  line-height: 1.6;
+  margin-top: 1.5rem; /* mais espaço acima */
+  font-size: 1rem;
+  color: #bbb;
+  line-height: 1.7;
 }
 
-.decription-content {
+.list-information ul {
+  background-color: #1e1e1e;
+  padding: 1.5rem 2rem; /* mais padding */
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
   display: flex;
+  flex-direction: column;
+  gap: 1.2rem; /* gap maior entre botões */
 }
 
-/* Navbar */
-.navbar {
-  background: linear-gradient(90deg, #0d1117, #161b22);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-  border-bottom: 2px solid #2ea44f;
-}
-
-.navbar-brand {
-  font-size: 1.8rem;
-  letter-spacing: 2px;
-  color: #58a6ff !important;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-.navbar-brand:hover {
-  color: #2ea44f !important;
-}
-
-.navbar-nav {
-  display: flex;
-  gap: 0.5cm;
-}
-
-.navbar-nav .nav-link {
-  color: #c9d1d9 !important;
-  font-weight: 500;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.navbar-nav .nav-link:hover {
-  color: #58a6ff !important;
-  transform: translateY(-2px);
-}
-
-.navbar-nav .btn {
-  border-radius: 20px;
-  transition: all 0.3s ease;
-}
-
-.navbar-nav .btn:hover {
-  background-color: #2ea44f;
-  border-color: #2ea44f;
-  color: #fff;
-}
-
-.navbar-toggler {
+.list-information li button,
+.list-information li a.btn {
+  font-size: 1.1rem; /* texto um pouco maior */
+  padding: 14px 0; /* mais espaço interno vertical */
+  border-radius: 25px;
+  width: 100%;
+  font-weight: 600;
   border: none;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.navbar-toggler:focus {
-  outline: none;
-  box-shadow: none;
+#btn-favoritar {
+  background-color: #d64545;
+  color: #fff;
+  box-shadow: 0 5px 12px rgba(214, 69, 69, 0.7);
+}
+
+#btn-favoritar:hover {
+  background-color: #a93030;
+  box-shadow: 0 7px 18px rgba(169, 48, 48, 0.9);
+}
+
+#btn-loja {
+  background-color: #0069d9;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 5px 12px rgba(0, 105, 217, 0.7);
+}
+
+#btn-loja:hover {
+  background-color: #004a99;
+  box-shadow: 0 7px 18px rgba(0, 74, 153, 0.9);
+}
+
+#btn-compartilhar {
+  background-color: #4f4f4f;
+  color: #fff;
+  box-shadow: 0 5px 12px rgba(79, 79, 79, 0.7);
+}
+
+#btn-compartilhar:hover {
+  background-color: #6b6b6b;
+  box-shadow: 0 7px 18px rgba(107, 107, 107, 0.9);
+}
+
+@media (max-width: 768px) {
+  .image-block {
+    height: 280px; /* também aumentado proporcionalmente */
+  }
+
+  .game-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .list-information ul {
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .list-information li button,
+  .list-information li a.btn {
+    font-size: 1rem;
+    padding: 12px 0;
+  }
 }
