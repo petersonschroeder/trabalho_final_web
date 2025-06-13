@@ -45,13 +45,15 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Botão Compartilhar (copia URL da página atual)
-  document.getElementById("btn-compartilhar").addEventListener("click", async () => {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      alert("Link copiado para a área de transferência!");
-    } catch (err) {
-      alert("Erro ao copiar o link. Tente copiar manualmente.");
-      console.error(err);
-    }
-  });
+  document
+    .getElementById("btn-compartilhar")
+    .addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(jogo.open_giveaway);
+        alert("Link copiado para a área de transferência!");
+      } catch (err) {
+        alert("Erro ao copiar o link. Tente copiar manualmente.");
+        console.error(err);
+      }
+    });
 });
