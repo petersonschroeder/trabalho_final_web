@@ -50,7 +50,7 @@ function criarCard(jogo, todosJogos) {
       localStorage.setItem("todosGiveaways", JSON.stringify(todosJogos));
     }
 
-    window.location.href = `Pages/gamepage.html?id=${jogo.id}`;
+    window.location.href = `gamepage.html?id=${jogo.id}`;
   });
 
   return card;

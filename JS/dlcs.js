@@ -50,7 +50,7 @@ function criarCard(jogo, todosJogos) {
       localStorage.setItem("todosGiveaways", JSON.stringify(todosJogos));
     }
 
-    window.location.href = `Pages/gamepage.html?id=${jogo.id}`;
+    window.location.href = `gamepage.html?id=${jogo.id}`;
   });
 
   return card;
@@ -71,7 +71,7 @@ function renderizarPorTipo(destaques, containerId, tipo = null, limite = null) {
 
   jogosParaRenderizar.forEach((jogo) => {
     const col = document.createElement("div");
-    col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3"); 
+    col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3");
     col.appendChild(criarCard(jogo, destaques));
     row.appendChild(col);
   });
