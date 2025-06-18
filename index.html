@@ -4,69 +4,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Best Free Games</title>
-
-    <!-- CSS -->
     <link rel="stylesheet" href="../Css/main.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="Pages/imagens/joystic.png" />
+    <link rel="icon" type="image/png" href="/Pages/imagens/joystic.png" />
   </head>
 
   <body class="bg-dark text-light">
-    <!-- Cabeçalho -->
     <header>
-      <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
         <div class="container-fluid">
-          <a class="navbar-brand fw-bold" href="#">BEST FREE GAMES</a>
+          <a class="navbar-brand fw-bold" href="/">GameHub Brasil</a>
+
           <button
             class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
+            data-bs-target="#navbarMenu"
+            aria-controls="navbarMenu"
             aria-expanded="false"
-            aria-label="Toggle navigation"
+            aria-label="Alternar navegação"
           >
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse" id="navbarMenu">
             <ul
               class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-3"
             >
-              <li class="nav-item"><a class="nav-link" href="#">Serviço</a></li>
               <li class="nav-item">
-                <a class="nav-link" href="desenvolvedores.html" target="_blank"
-                  >Desenvolvedores</a
-                >
+                <a class="nav-link" href="/Pages/favoritos.html">Favoritos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="Pages/favoritos.html">Favoritos</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="login.html">Login</a>
+                <a class="nav-link" href="/Pages/login.html">Login</a>
               </li>
             </ul>
           </div>
         </div>
       </nav>
 
-      <!-- Faixa de aviso -->
-      <div class="faixa">
+      <div class="bg-warning text-dark text-center py-2">
         <div
-          class="texto-faixa d-flex align-items-center justify-content-center gap-2 py-2"
+          class="container d-flex align-items-center justify-content-center gap-2"
         >
           <img
             src="https://images.pexels.com/photos/30413911/pexels-photo-30413911/free-photo-of-vista-serena-do-lago-com-folhagem-de-outono.jpeg"
             alt="Ícone"
             width="30"
+            height="30"
+            class="rounded-circle"
           />
-          <span
+          <span class="fw-semibold"
             >Atenção: Promoção especial essa semana! Não perca! | Novo produto
             disponível!</span
           >
@@ -74,15 +64,39 @@
             src="https://images.pexels.com/photos/30413911/pexels-photo-30413911/free-photo-of-vista-serena-do-lago-com-folhagem-de-outono.jpeg"
             alt="Ícone"
             width="30"
+            height="30"
+            class="rounded-circle"
           />
         </div>
       </div>
     </header>
 
-    <!-- Conteúdo Principal -->
     <main role="main">
+      <div class="container main-container">
+        <section class="my-5">
+          <h2>
+            <a href="/Pages/jogosDestaque.html" class="link-hover-move"
+              >Jogos em destaque <span>&gt;</span></a
+            >
+          </h2>
+          <div class="mt-4 d-flex">
+            <div id="destaqueContainer" class="d-flex gap-3"></div>
+          </div>
+        </section>
+
+        <section class="my-5">
+          <h2>
+            <a href="/Pages/dlcs.html" class="link-hover-move"
+              >DLCs <span>&gt;</span></a
+            >
+          </h2>
+          <div class="mt-4 d-flex">
+            <div id="destaqueDLCs" class="d-flex gap-3"></div>
+          </div>
+        </section>
+      </div>
+
       <div class="container py-4">
-        <!-- Campo de pesquisa -->
         <div class="row mb-4">
           <div class="col-md-8 mx-auto">
             <div class="input-group">
@@ -97,87 +111,17 @@
           </div>
         </div>
 
-        <!-- Filtros -->
         <div id="filtrosContainer" class="row g-3 mb-4"></div>
-
-        
-        <!-- Cards -->
         <div id="cardsContainer" class="row g-3"></div>
-      </div>
-
-      <div class="container main-container">
-        <!-- Destaques -->
-        <section class="my-5">
-          <h2>
-            <a href="pagina-destino.html" class="link-hover-move"
-              >Jogos em destaque <span>&gt;</span></a
-            >
-          </h2>
-          <div class="mt-4 d-flex">
-            <div id="destaqueContainer" class="mt-4 d-flex gap-3"></div>
-          </div>
-        </section>
-
-        <!-- DLCs -->
-        <section class="my-5">
-          <h2>
-            <a href="pagina-destino.html" class="link-hover-move"
-              >DLCs <span>&gt;</span></a
-            >
-          </h2>
-          <div class="mt-4 d-flex">
-            <div id="destaqueDLCs" class="mt-4 d-flex gap-3"></div>
-          </div>
-        </section>
-
-        <!-- Plataformas -->
-        <section class="my-5">
-          <h2>Plataformas</h2>
-          <div class="d-flex justify-content-between gap-4">
-            <!-- Steam -->
-            <div class="flex-fill">
-              <span class="d-block mb-3 fs-5 fw-semibold">Steam</span>
-              <ul class="d-flex flex-column gap-3 p-0" style="list-style: none">
-                <!-- Repetição de cards com template -->
-              </ul>
-            </div>
-
-            <!-- Epic -->
-            <div class="flex-fill">
-              <span class="d-block mb-3 fs-5 fw-semibold">Epic</span>
-              <ul class="d-flex flex-column gap-3 p-0" style="list-style: none">
-                <!-- Repetição de cards com template -->
-              </ul>
-            </div>
-
-            <!-- GOG -->
-            <div class="flex-fill">
-              <span class="d-block mb-3 fs-5 fw-semibold">GOG</span>
-              <ul class="d-flex flex-column gap-3 p-0" style="list-style: none">
-                <!-- Repetição de cards com template -->
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- Resultados Dinâmicos -->
-        <section
-          id="card-area"
-          class="container"
-          aria-label="Resultados de busca"
-        >
-          <!-- Conteúdo gerado dinamicamente -->
-        </section>
       </div>
     </main>
 
-    <!-- Rodapé -->
-    <footer class="text-light bg-dark pt-5">
-      <div class="bg-secondary py-4">
-        <section class="container">
-          <div class="row text-center">
+    <footer class="bg-dark text-light pt-5">
+      <div class="bg-secondary bg-gradient py-5">
+        <div class="container">
+          <div class="row text-center text-md-start">
             <div class="col-lg-3 col-md-6 mb-4">
-              <h2 class="fs-4">Sobre</h2>
+              <h5 class="text-uppercase fw-bold mb-3">Sobre</h5>
               <p>
                 Nos dedicamos a manter você sempre atualizado com as melhores
                 oportunidades de games grátis.
@@ -185,24 +129,46 @@
             </div>
 
             <div class="col-lg-3 col-md-6 mb-4">
-              <h3>Links Úteis</h3>
+              <h5 class="text-uppercase fw-bold mb-3">Links Úteis</h5>
               <ul class="list-unstyled">
-                <li><a href="#" class="text-light">Promoções</a></li>
-                <li><a href="#" class="text-light">Blog</a></li>
-                <li><a href="#" class="text-light">Contato</a></li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-light text-decoration-none d-block py-1"
+                    >Promoções</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-light text-decoration-none d-block py-1"
+                    >Blog</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-light text-decoration-none d-block py-1"
+                    >Contato</a
+                  >
+                </li>
               </ul>
             </div>
 
             <div class="col-lg-3 col-md-6 mb-4">
-              <h3>Contato</h3>
+              <h5 class="text-uppercase fw-bold mb-3">Contato</h5>
               <ul class="list-unstyled">
-                <li>
-                  <a href="mailto:contato@bestfreegames.com" class="text-light"
+                <li class="py-1">
+                  <a
+                    href="mailto:contato@bestfreegames.com"
+                    class="text-light text-decoration-none"
                     >contato@bestfreegames.com</a
                   >
                 </li>
-                <li>
-                  <a href="tel:+555559999999" class="text-light"
+                <li class="py-1">
+                  <a
+                    href="tel:+555559999999"
+                    class="text-light text-decoration-none"
                     >+55 55 5999 9999</a
                   >
                 </li>
@@ -210,38 +176,35 @@
             </div>
 
             <div class="col-lg-3 col-md-6 mb-4">
-              <h3>Siga-nos</h3>
-              <ul class="list-inline">
-                <li class="list-inline-item">
-                  <a href="#" class="text-light" aria-label="Facebook"
-                    ><i class="fa-brands fa-facebook"></i
-                  ></a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#" class="text-light" aria-label="Instagram"
-                    ><i class="fa-brands fa-instagram"></i
-                  ></a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#" class="text-light" aria-label="LinkedIn"
-                    ><i class="fa-brands fa-linkedin"></i
-                  ></a>
-                </li>
-              </ul>
+              <h5 class="text-uppercase fw-bold mb-3">Siga-nos</h5>
+              <div
+                class="d-flex justify-content-center justify-content-md-start gap-3"
+              >
+                <a href="#" class="text-light" aria-label="Facebook"
+                  ><i class="fab fa-facebook fa-lg"></i
+                ></a>
+                <a href="#" class="text-light" aria-label="Instagram"
+                  ><i class="fab fa-instagram fa-lg"></i
+                ></a>
+                <a href="#" class="text-light" aria-label="LinkedIn"
+                  ><i class="fab fa-linkedin fa-lg"></i
+                ></a>
+              </div>
             </div>
           </div>
-        </section>
+        </div>
       </div>
 
-      <div class="bg-dark text-center py-3">
-        <p class="mb-0">
+      <div class="bg-dark text-center py-3 border-top border-secondary">
+        <p class="mb-0 small">
           Desenvolvido por
-          <a href="#" class="text-light fw-bold">Seu Nome Aqui</a>
+          <a href="#" class="text-light fw-bold text-decoration-none"
+            >Equipe GameHub Brasil</a
+          >
         </p>
       </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="./JS/filtros.js"></script>
     <script type="module" src="./JS/app.js"></script>
